@@ -4,7 +4,6 @@ import { useSideNavState } from '../hooks/useSideNavState';
 import { adminSideNavItems } from '../routing/adminNavItems';
 import Drawer from '@mui/material/Drawer';
 import { sideNavHeadColor, sideNavWidth } from '../utils/constants';
-import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -16,25 +15,34 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@mui/material';
+import { matchPath } from 'react-router-dom';
 
-const SideNavDrawer = styled(Drawer)(() => ({
+const SideNavDrawer = styled(Drawer)(({ theme }) => ({
   width: sideNavWidth,
   border: '0px !important',
-  flexShrink: 0,
   '& .MuiDrawer-paper': {
     border: '0px !important',
     width: sideNavWidth,
     boxSizing: 'border-box',
-    background: sideNavHeadColor,
+    background: 'transparent',
     color: 'white',
+    height: '100%',
+    padding: theme.spacing(1),
   },
   '& .material-icons': {
     color: 'white',
   },
-}));
-
-const CustomDivider = styled(Divider)(() => ({
-  borderColor: '#363a43f2',
+  '& .sideNavContent': {
+    background: sideNavHeadColor,
+    height: '100%',
+    borderRadius: '5px',
+  },
+  '& .navItem': {
+    borderRadius: '5px',
+  },
+  '& .navItem.Mui-selected': {
+    background: 'rgb(17,24,39,0.7)',
+  },
 }));
 
 type IProps = {
@@ -47,16 +55,18 @@ export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
   const navKeys = Object.keys(navItems);
   return (
     <SideNavDrawer open={open} variant='persistent' anchor='left'>
-      <SideNavHeadSide />
-      <CustomDivider />
-      {navKeys.map((itemKey) => (
-        <List key={itemKey} disablePadding>
-          {/* Item */}
-          <NavLinkItem itemKey={itemKey} item={navItems[itemKey]} handleItemClick={handleItemClick} />
-          {/* subItems */}
-          <NavLinkItemSubs itemKey={itemKey} item={navItems[itemKey]} handleSubItemClick={handleSubItemClick} />
-        </List>
-      ))}
+      <Box className='sideNavContent'>
+        <SideNavHeadSide />
+        {/* <CustomDivider /> */}
+        {navKeys.map((itemKey) => (
+          <List key={itemKey} disablePadding dense>
+            {/* Item */}
+            <NavLinkItem itemKey={itemKey} item={navItems[itemKey]} handleItemClick={handleItemClick} />
+            {/* subItems */}
+            <NavLinkItemSubs itemKey={itemKey} item={navItems[itemKey]} handleSubItemClick={handleSubItemClick} />
+          </List>
+        ))}
+      </Box>
     </SideNavDrawer>
   );
 };
@@ -68,7 +78,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'center',
-  background: sideNavHeadColor,
   minHeight: '130px !important',
 }));
 
@@ -97,9 +106,10 @@ const NavLinkItem: React.FC<{ itemKey: string; item: ISideNavItem; handleItemCli
   itemKey,
   handleItemClick,
 }) => {
+  const isItemActive = !!matchPath(location.pathname, item.route!);
   return (
     <ListItem onClick={(e) => handleItemClick(e, itemKey)}>
-      <ListItemButton>
+      <ListItemButton className='navItem' selected={isItemActive}>
         <ListItemIcon>
           <Icon>{item.icon}</Icon>
         </ListItemIcon>
@@ -152,3 +162,7 @@ const NavSubItem: React.FC<{
     </ListItem>
   );
 };
+
+// const CustomDivider = styled(Divider)(() => ({
+//   borderColor: '#363a43f2',
+// }));
