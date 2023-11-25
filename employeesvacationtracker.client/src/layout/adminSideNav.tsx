@@ -17,10 +17,25 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@mui/material';
 
-// const Container = styled(Box)(({ theme }) => ({
-//   marginTop: theme.spacing(10),
-//   paddingBottom: theme.spacing(5),
-// }));
+const SideNavDrawer = styled(Drawer)(() => ({
+  width: sideNavWidth,
+  border: '0px !important',
+  flexShrink: 0,
+  '& .MuiDrawer-paper': {
+    border: '0px !important',
+    width: sideNavWidth,
+    boxSizing: 'border-box',
+    background: sideNavHeadColor,
+    color: 'white',
+  },
+  '& .material-icons': {
+    color: 'white',
+  },
+}));
+
+const CustomDivider = styled(Divider)(() => ({
+  borderColor: '#363a43f2',
+}));
 
 type IProps = {
   open: boolean;
@@ -31,22 +46,9 @@ export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
   const { navItems, handleItemClick, handleSubItemClick } = useSideNavState(adminSideNavItems);
   const navKeys = Object.keys(navItems);
   return (
-    <Drawer
-      open={open}
-      variant='persistent'
-      anchor='left'
-      sx={{
-        width: sideNavWidth,
-        border: '0px !important',
-        flexShrink: 0,
-        '&  .MuiDrawer-paper': {
-          border: '0px !important',
-          width: sideNavWidth,
-          boxSizing: 'border-box',
-        },
-      }}>
+    <SideNavDrawer open={open} variant='persistent' anchor='left'>
       <SideNavHeadSide />
-      <Divider />
+      <CustomDivider />
       {navKeys.map((itemKey) => (
         <List key={itemKey} disablePadding>
           {/* Item */}
@@ -55,7 +57,7 @@ export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
           <NavLinkItemSubs itemKey={itemKey} item={navItems[itemKey]} handleSubItemClick={handleSubItemClick} />
         </List>
       ))}
-    </Drawer>
+    </SideNavDrawer>
   );
 };
 
@@ -65,7 +67,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   background: sideNavHeadColor,
   minHeight: '130px !important',
 }));

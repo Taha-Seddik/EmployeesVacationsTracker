@@ -1,5 +1,6 @@
 @import '@fontsource-variable/inter/slnt.css';
 @import 'material-icons/iconfont/filled.css';
+@import './utilities/_flexUtils.css';
 
 body {
   margin: 0;
