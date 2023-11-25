@@ -1,0 +1,11 @@
+@import "@fontsource-variable/inter/slnt.css";
+
+body {
+  margin: 0;
+  color: rgb(33, 37, 41);
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+}

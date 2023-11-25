@@ -1,0 +1,23 @@
+#New component 
+export const ...Component: React.FC<{}> = () => {
+  return (
+   ...
+  );
+};
+
+
+----------- 
+Sample Custom style 
+----------- 
+import { styled } from "@mui/material/styles";
+
+const Container = styled("footer")(({ theme }) => ({
+  marginTop: theme.spacing(10),
+  paddingBottom: theme.spacing(5),
+}));
+
+const InnerContent = styled("div")(() => ({
+  width: "fit-content",
+  margin: "0 auto",
+  textAlign: "center",
+}));
