@@ -10,4 +10,12 @@ export const adminSideNavItems: { [key: string]: ISideNavItem } = {
     route: RoutesMap.home.path,
     items: [],
   },
+  Employees: {
+    index: 0,
+    label: 'Employees',
+    open: false,
+    icon: 'people',
+    route: RoutesMap.home.path,
+    items: [],
+  },
 };
