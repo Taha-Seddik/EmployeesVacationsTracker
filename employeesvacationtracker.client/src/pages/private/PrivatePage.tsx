@@ -1,11 +1,15 @@
 import { Outlet } from 'react-router-dom';
 import { AdminPageLayout } from '../../layout/main';
+import CssBaseline from '@mui/material/CssBaseline';
 
 const PrivatePage: React.FC<{}> = () => {
   return (
-    <AdminPageLayout>
-      <Outlet />
-    </AdminPageLayout>
+    <>
+      <CssBaseline />
+      <AdminPageLayout>
+        <Outlet />
+      </AdminPageLayout>
+    </>
   );
 };
 

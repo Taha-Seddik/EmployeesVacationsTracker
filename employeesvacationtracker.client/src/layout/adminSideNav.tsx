@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import { useSideNavState } from '../hooks/useSideNavState';
 import { adminSideNavItems } from '../routing/adminNavItems';
@@ -16,6 +15,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@mui/material';
 import { matchPath } from 'react-router-dom';
+import Box from '@mui/material/Box';
 
 const SideNavDrawer = styled(Drawer)(({ theme }) => ({
   width: sideNavWidth,
@@ -55,7 +55,7 @@ export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
   const navKeys = Object.keys(navItems);
   return (
     <SideNavDrawer open={open} variant='persistent' anchor='left'>
-      <Box className='sideNavContent'>
+      <div className='sideNavContent'>
         <SideNavHeadSide />
         {/* <CustomDivider /> */}
         {navKeys.map((itemKey) => (
@@ -66,7 +66,7 @@ export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
             <NavLinkItemSubs itemKey={itemKey} item={navItems[itemKey]} handleSubItemClick={handleSubItemClick} />
           </List>
         ))}
-      </Box>
+      </div>
     </SideNavDrawer>
   );
 };

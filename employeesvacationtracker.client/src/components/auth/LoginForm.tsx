@@ -1,5 +1,4 @@
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
-import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -9,8 +8,9 @@ import { SignInData } from '../../models/authTypes';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { RoutesMap } from '../../routing/RoutesMap';
+import Box from '@mui/material/Box';
 
-const LoginFormContainer = styled(Box)(({ theme }) => ({
+const LoginFormContainer = styled('div')(({ theme }) => ({
   width: '60%',
   marginTop: theme.spacing(-2),
 }));

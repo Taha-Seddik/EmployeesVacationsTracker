@@ -1,8 +1,8 @@
-import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import { LoginForm } from '../../components/auth/LoginForm';
+import Box from '@mui/material/Box';
 
-const LeftSideContainer = styled(Box)(() => ({
+const LeftSideContainer = styled('div')(() => ({
   display: 'flex',
   overflow: 'hideen',
   position: 'relative',
@@ -23,12 +23,13 @@ const CustomImg = styled('img')(() => ({
   height: '100%',
 }));
 
-const RightSideContainer = styled(Box)(() => ({
+const RightSideContainer = styled('div')(() => ({
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
+  flex: 1,
 }));
 
 const SignInPage: React.FC<{}> = () => {
@@ -38,7 +39,7 @@ const SignInPage: React.FC<{}> = () => {
         <LogoImg src='/images/logo-01.png' alt='logoImg' />
         <CustomImg src={'/images/loginLeftBg-01.png'} alt='loginImg' />
       </LeftSideContainer>
-      <RightSideContainer className='rightSideBlock' flex={1}>
+      <RightSideContainer className='rightSideBlock'>
         <LoginForm />
       </RightSideContainer>
     </Box>
