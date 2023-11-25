@@ -7,16 +7,20 @@ import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import { SignInData } from "../../models/authTypes";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { RoutesMap } from "../../routing/appRoutes";
 
-const LoginFormContainer = styled(Box)(() => ({
+const LoginFormContainer = styled(Box)(({ theme }) => ({
   width: "60%",
+  marginTop: theme.spacing(-2),
 }));
 
-const getDefaultFormState = () => ({ email: "", password: "" });
+const getDefaultFormState = () => ({ email: "keita@gmail.com", password: "1111" });
 
 export const LoginForm: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [signInData, setSignInData] = useState<SignInData>(getDefaultFormState());
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -32,12 +36,15 @@ export const LoginForm: React.FC<{}> = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
+    // go to home page
+    navigate(RoutesMap.home.path);
   };
 
   return (
     <LoginFormContainer>
       <form onSubmit={handleSubmit}>
-        <Typography variant="h5" fontWeight={300} fontSize="2rem">
+        <Typography variant="h5" fontWeight={300}>
           Welcome to Vacation Tracker
         </Typography>
         <Typography variant="h4" fontWeight={600}>

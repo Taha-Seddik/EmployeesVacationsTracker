@@ -5,7 +5,7 @@ import SignInPage from "../pages/signInPage";
 
 export const RoutesMap = {
   home: {
-    path: `/home`,
+    path: `/adminHome`,
   },
   signIn: {
     path: `/signIn`,

@@ -23,23 +23,12 @@ const CustomImg = styled("img")(() => ({
   height: "100%",
 }));
 
-const RightSideContainer = styled(Box)(({ theme }) => ({
+const RightSideContainer = styled(Box)(() => ({
   margin: "0 auto",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-}));
-
-const LoginEnvelop = styled(Box)(({ theme }) => ({
-  // width: "80%",
-  margin: "0 auto",
-  // textAlign: "center",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: theme.spacing(8),
 }));
 
 const SignInPage: React.FC<{}> = () => {
@@ -50,9 +39,7 @@ const SignInPage: React.FC<{}> = () => {
         <CustomImg src={"/images/loginLeftBg-01.png"} alt="loginImg" />
       </LeftSideContainer>
       <RightSideContainer className="rightSideBlock" flex={1}>
-        {/* <LoginEnvelop> */}
         <LoginForm />
-        {/* </LoginEnvelop> */}
       </RightSideContainer>
     </Box>
   );
