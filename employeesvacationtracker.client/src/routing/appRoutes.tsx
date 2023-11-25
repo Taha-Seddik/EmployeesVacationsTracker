@@ -1,12 +1,12 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import ErrorPage from '../pages/error';
 import AdminHomePage from '../pages/adminHomePage';
-import SignInPage from '../pages/signInPage';
+import SignInPage from '../pages/auth/signInPage';
 import { RoutesMap } from './RoutesMap';
-import EmployeesPage from '../pages/EmployeesPage';
-import EmployeeEditionPage from '../pages/EmployeeEditionPage';
-import VacationsPage from '../pages/vacationsPage';
-import VacationEditionPage from '../pages/vacationEditionPage';
+import EmployeesPage from '../pages/employees/employeesPage';
+import EmployeeEditionPage from '../pages/employees/employeeEditionPage';
+import VacationsPage from '../pages/vacations/vacationsPage';
+import VacationEditionPage from '../pages/vacations/vacationEditionPage';
 
 export const appRouter = createBrowserRouter([
   {
