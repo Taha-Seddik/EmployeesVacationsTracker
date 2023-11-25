@@ -15,19 +15,28 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Avatar from '@mui/material/Avatar';
 import { Icon } from '@mui/material';
 import { matchPath } from 'react-router-dom';
-import Box from '@mui/material/Box';
 
-const SideNavDrawer = styled(Drawer)(({ theme }) => ({
-  width: sideNavWidth,
+type IProps = {
+  open: boolean;
+  handleDrawerClose: () => void;
+};
+
+const SideNavDrawer = styled(Drawer)(({ theme, open }) => ({
+  width: open ? sideNavWidth : 0,
+  transition: theme.transitions.create(['width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
   border: '0px !important',
   '& .MuiDrawer-paper': {
     border: '0px !important',
-    width: sideNavWidth,
+    width: open ? sideNavWidth : 0,
     boxSizing: 'border-box',
     background: 'transparent',
     color: 'white',
     height: '100%',
     padding: theme.spacing(1),
+    paddingRight: 0,
   },
   '& .material-icons': {
     color: 'white',
@@ -36,6 +45,7 @@ const SideNavDrawer = styled(Drawer)(({ theme }) => ({
     background: sideNavHeadColor,
     height: '100%',
     borderRadius: '5px',
+    display: open ? '' : 'none',
   },
   '& .navItem': {
     borderRadius: '5px',
@@ -44,11 +54,6 @@ const SideNavDrawer = styled(Drawer)(({ theme }) => ({
     background: 'rgb(17,24,39,0.7)',
   },
 }));
-
-type IProps = {
-  open: boolean;
-  handleDrawerClose: () => void;
-};
 
 export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
   const { navItems, handleItemClick, handleSubItemClick } = useSideNavState(adminSideNavItems);
@@ -87,14 +92,8 @@ const SideNavHeadSide: React.FC<{}> = () => {
   return (
     <DrawerHeader className='flexCenterRow' sx={{ height: 130 }}>
       <div className='toolbar flexCenterCenterColumn'>
-        <Avatar src='/images/adminPic.png' sx={{ mb: 1 }}></Avatar>
-        <Typography variant='body1' textTransform='capitalize'>
-          {/* {userData.firstName} {userData.lastName} */}
-          Keita touré
-        </Typography>
-        <Typography variant='caption' gutterBottom>
-          Administrateur
-        </Typography>
+        {/* <Avatar src='/images/adminPic.png' sx={{ mb: 1 }}></Avatar> */}
+        <img src='/images/dark-logo-01.png' alt='app logo' width='150' />
       </div>
     </DrawerHeader>
   );
@@ -162,7 +161,3 @@ const NavSubItem: React.FC<{
     </ListItem>
   );
 };
-
-// const CustomDivider = styled(Divider)(() => ({
-//   borderColor: '#363a43f2',
-// }));

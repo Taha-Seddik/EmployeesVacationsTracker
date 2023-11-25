@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { AdminSideNavPanel } from './adminSideNav';
-// import Box from '@mui/material/Box';
+import { AdminMainSide } from './adminMainSide';
+import Box from '@mui/material/Box';
 
 // const Container = styled(Box)(({ theme }) => ({
 //   marginTop: theme.spacing(10),
@@ -20,11 +21,11 @@ export const AdminPageLayout: React.FC<{ children: React.ReactElement }> = () =>
   };
 
   return (
-    <>
+    <Box display='flex' position='relative' width='100%' height='100%' overflow='hidden'>
       <PageDecoration />
       <AdminSideNavPanel open={openNav} handleDrawerClose={handleDrawerClose} />
-      {/* <AdminMainSide openNav={openNav} toggleDrawer={toggleDrawer} /> */}
-    </>
+      <AdminMainSide openNav={openNav} toggleDrawer={toggleDrawer} />
+    </Box>
   );
 };
 
@@ -41,18 +42,18 @@ const TopRightImg = styled('img')(() => ({
   right: '-40px',
 }));
 
-const DecorationContainer = styled('div')(() => ({
-  position: 'relative',
-  width: '100%',
-  height: '100%',
-  overflow: 'hidden',
-}));
+// const DecorationContainer = styled('div')(() => ({
+//   position: 'relative',
+//   width: '100%',
+//   height: '100%',
+//   overflow: 'hidden',
+// }));
 
 const PageDecoration: React.FC<{}> = () => {
   return (
-    <DecorationContainer>
+    <>
       <TopRightImg src='/images/topRight.svg' alt='' />
       <BottomLeftImg src='/images/bottomLeft.svg' alt='' />
-    </DecorationContainer>
+    </>
   );
 };
