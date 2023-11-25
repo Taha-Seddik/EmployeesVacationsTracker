@@ -19,7 +19,7 @@ export const SideNavDrawer = styled(Drawer)(({ theme, open }) => ({
     background: 'transparent',
     color: 'white',
     height: '100%',
-    padding: theme.spacing(1),
+    // padding: theme.spacing(1),
     paddingRight: 0,
   },
   '& .material-icons': {
@@ -28,7 +28,7 @@ export const SideNavDrawer = styled(Drawer)(({ theme, open }) => ({
   '& .sideNavContent': {
     background: sideNavHeadColor,
     height: '100%',
-    borderRadius: '5px',
+    // borderRadius: '5px',
     display: open ? '' : 'none',
   },
   '& .navItem': {
@@ -77,7 +77,7 @@ export const MainSideContainer = styled(Box, {
 
 export const MainSideTopBar = styled(MuiAppBar)(({ theme }) => ({
   height: 68,
-  padding: theme.spacing(0, 1),
+  // padding: theme.spacing(0, 1),
   alignItems: 'center',
   justifyContent: 'center',
   '& .innerContent': {
@@ -86,8 +86,10 @@ export const MainSideTopBar = styled(MuiAppBar)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '5px',
-    marginTop: theme.spacing(0.5),
+    // borderRadius: '5px',
+    // marginTop: theme.spacing(0.5),
     padding: theme.spacing(1, 4),
+    height: '100%',
+    borderLeft: '1px solid rgb(35 45 63 / 18%)',
   },
 }));
