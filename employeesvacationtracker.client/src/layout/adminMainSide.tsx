@@ -89,7 +89,7 @@ const AdminAccountMenu: React.FC<IAdminAccountMenuProps> = ({ anchorEl, handleCl
   return (
     <Popper anchorEl={anchorEl} open={Boolean(anchorEl)} placement='bottom-end' sx={{ p: 1 }}>
       <ClickAwayListener onClickAway={handleClose}>
-        <Paper sx={{ width: 230, mt: -1, background: sideNavHeadColor }}>
+        <Paper sx={{ width: 230, background: sideNavHeadColor }}>
           <Box display='flex' flexDirection='column'>
             <Button
               className='fullW'
