@@ -1,61 +1,33 @@
-import { useState } from 'react';
-import { Avatar, Button, ClickAwayListener, Fab, Popper, Typography, styled } from '@mui/material';
-import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
+import { useRef, useState } from 'react';
+import { Avatar, Button, ClickAwayListener, Fab, Paper, Popper, Typography } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { RoutesMap } from '../routing/RoutesMap';
 import Box from '@mui/material/Box';
-import { sideNavHeadColor, sideNavWidth } from '../utils/constants';
+import { MainSideContainer, MainSideTopBar } from './layout.styles';
+import { sideNavHeadColor } from '../utils/constants';
 
 type IProps = {
   openNav: boolean;
   toggleDrawer: () => void;
 };
 
-type AppBarProps = MuiAppBarProps & {
-  open?: boolean;
-};
-
-const CustomContainer = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
-  width: '100%',
-  height: '100%',
-  overflow: 'hidden',
-  display: 'flex',
-  flexDirection: 'column',
-  transition: theme.transitions.create(['margin', 'width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${sideNavWidth}px)`,
-    marginLeft: `${sideNavWidth}px`,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
 export const AdminMainSide: React.FC<IProps> = ({ toggleDrawer }) => {
   return (
-    <CustomContainer>
+    <MainSideContainer>
       {/* Top bar  */}
       <TopBar toggleDrawer={toggleDrawer} />
-    </CustomContainer>
+    </MainSideContainer>
   );
 };
 
 const TopBar: React.FC<{ toggleDrawer: () => void }> = ({ toggleDrawer }) => {
-  const [accountMenuBtnEL, setAccountMenuBtnEL] = useState(null);
+  const [accountMenuBtnEL, setAccountMenuBtnEL] = useState<HTMLElement | null>(null);
+  const userMenuAnchor = useRef<HTMLElement | null>(null);
 
-  const handleClickOnAccountBtn = (ev: React.MouseEvent<any>) => {
-    setAccountMenuBtnEL(ev.currentTarget);
+  const handleClickOnAccountBtn = () => {
+    setAccountMenuBtnEL(userMenuAnchor.current);
   };
 
   const handleCloseAccountMenu = () => {
@@ -64,22 +36,8 @@ const TopBar: React.FC<{ toggleDrawer: () => void }> = ({ toggleDrawer }) => {
 
   return (
     <>
-      <MuiAppBar
-        position='relative'
-        color='transparent'
-        elevation={0}
-        sx={{ height: 68, px: 1, alignItems: 'center', justifyContent: 'center' }}>
-        {/* <Toolbar sx={{ width: '100%' }}> */}
-        <Box
-          bgcolor={sideNavHeadColor}
-          width='100%'
-          display='flex'
-          alignItems='center'
-          justifyContent='center'
-          borderRadius='5px'
-          mt={0.5}
-          py={1}
-          px={4}>
+      <MainSideTopBar position='relative' color='transparent' elevation={0} ref={userMenuAnchor}>
+        <Box className='innerContent'>
           <IconButton
             edge='start'
             color='inherit'
@@ -91,8 +49,7 @@ const TopBar: React.FC<{ toggleDrawer: () => void }> = ({ toggleDrawer }) => {
           <span className='takeTheRest' />
           <AdminUserMenuButton clickHandler={handleClickOnAccountBtn} isForMobile={false} />
         </Box>
-        {/* </Toolbar> */}
-      </MuiAppBar>
+      </MainSideTopBar>
       <AdminAccountMenu anchorEl={accountMenuBtnEL} handleClose={handleCloseAccountMenu} />
     </>
   );
@@ -103,7 +60,7 @@ type IAdminUserMenuButtonProps = {
   isForMobile: boolean;
 };
 
-const AdminUserMenuButton: React.FC<IAdminUserMenuButtonProps> = ({ clickHandler, isForMobile }) => {
+const AdminUserMenuButton: React.FC<IAdminUserMenuButtonProps> = ({ clickHandler }) => {
   // const userData = useUserData();
   // if (!userData) return null;
   return (
@@ -120,7 +77,7 @@ const AdminUserMenuButton: React.FC<IAdminUserMenuButtonProps> = ({ clickHandler
   );
 };
 
-type IAdminAccountMenuProps = { anchorEl: Element | null; handleClose: () => void };
+type IAdminAccountMenuProps = { anchorEl: HTMLElement | null; handleClose: () => void };
 
 const AdminAccountMenu: React.FC<IAdminAccountMenuProps> = ({ anchorEl, handleClose }) => {
   const navigate = useNavigate();
@@ -130,13 +87,19 @@ const AdminAccountMenu: React.FC<IAdminAccountMenuProps> = ({ anchorEl, handleCl
   };
 
   return (
-    <Popper id='account-menu-user' anchorEl={anchorEl} open={Boolean(anchorEl)} placement='bottom-end' sx={{ p: 1 }}>
+    <Popper anchorEl={anchorEl} open={Boolean(anchorEl)} placement='bottom-end' sx={{ p: 1 }}>
       <ClickAwayListener onClickAway={handleClose}>
-        <Box display='flex' flexDirection='column'>
-          <Button className='fullW' variant='contained' sx={{ width: '90%', my: 2, mx: 'auto' }} onClick={handleLogout}>
-            SignOut
-          </Button>
-        </Box>
+        <Paper sx={{ width: 230, mt: -1, background: sideNavHeadColor }}>
+          <Box display='flex' flexDirection='column'>
+            <Button
+              className='fullW'
+              variant='contained'
+              sx={{ width: '90%', my: 2, mx: 'auto' }}
+              onClick={handleLogout}>
+              SignOut
+            </Button>
+          </Box>
+        </Paper>
       </ClickAwayListener>
     </Popper>
   );

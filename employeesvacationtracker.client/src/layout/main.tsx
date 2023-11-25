@@ -4,11 +4,6 @@ import { AdminSideNavPanel } from './adminSideNav';
 import { AdminMainSide } from './adminMainSide';
 import Box from '@mui/material/Box';
 
-// const Container = styled(Box)(({ theme }) => ({
-//   marginTop: theme.spacing(10),
-//   paddingBottom: theme.spacing(5),
-// }));
-
 export const AdminPageLayout: React.FC<{ children: React.ReactElement }> = () => {
   const [openNav, setOpenNav] = useState(true);
 
@@ -41,13 +36,6 @@ const TopRightImg = styled('img')(() => ({
   top: '-40px',
   right: '-40px',
 }));
-
-// const DecorationContainer = styled('div')(() => ({
-//   position: 'relative',
-//   width: '100%',
-//   height: '100%',
-//   overflow: 'hidden',
-// }));
 
 const PageDecoration: React.FC<{}> = () => {
   return (

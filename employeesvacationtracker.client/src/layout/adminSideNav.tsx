@@ -1,8 +1,5 @@
-import { styled } from '@mui/material/styles';
 import { useSideNavState } from '../hooks/useSideNavState';
 import { adminSideNavItems } from '../routing/adminNavItems';
-import Drawer from '@mui/material/Drawer';
-import { sideNavHeadColor, sideNavWidth } from '../utils/constants';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,48 +9,14 @@ import Collapse from '@mui/material/Collapse';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import Avatar from '@mui/material/Avatar';
 import { Icon } from '@mui/material';
 import { matchPath } from 'react-router-dom';
+import { DrawerHeader, SideNavDrawer } from './layout.styles';
 
 type IProps = {
   open: boolean;
   handleDrawerClose: () => void;
 };
-
-const SideNavDrawer = styled(Drawer)(({ theme, open }) => ({
-  width: open ? sideNavWidth : 0,
-  transition: theme.transitions.create(['width'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  border: '0px !important',
-  '& .MuiDrawer-paper': {
-    border: '0px !important',
-    width: open ? sideNavWidth : 0,
-    boxSizing: 'border-box',
-    background: 'transparent',
-    color: 'white',
-    height: '100%',
-    padding: theme.spacing(1),
-    paddingRight: 0,
-  },
-  '& .material-icons': {
-    color: 'white',
-  },
-  '& .sideNavContent': {
-    background: sideNavHeadColor,
-    height: '100%',
-    borderRadius: '5px',
-    display: open ? '' : 'none',
-  },
-  '& .navItem': {
-    borderRadius: '5px',
-  },
-  '& .navItem.Mui-selected': {
-    background: 'rgb(17,24,39,0.7)',
-  },
-}));
 
 export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
   const { navItems, handleItemClick, handleSubItemClick } = useSideNavState(adminSideNavItems);
@@ -75,16 +38,6 @@ export const AdminSideNavPanel: React.FC<IProps> = ({ open }) => {
     </SideNavDrawer>
   );
 };
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: 'center',
-  minHeight: '130px !important',
-}));
 
 const SideNavHeadSide: React.FC<{}> = () => {
   //   const userData = useUserData();
