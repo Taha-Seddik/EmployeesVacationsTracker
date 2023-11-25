@@ -1,4 +1,5 @@
-@import "@fontsource-variable/inter/slnt.css";
+@import '@fontsource-variable/inter/slnt.css';
+@import 'material-icons/iconfont/filled.css';
 
 body {
   margin: 0;

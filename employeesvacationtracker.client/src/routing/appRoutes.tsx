@@ -1,16 +1,8 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
-import ErrorPage from "../pages/error";
-import AdminHomePage from "../pages/adminHomePage";
-import SignInPage from "../pages/signInPage";
-
-export const RoutesMap = {
-  home: {
-    path: `/adminHome`,
-  },
-  signIn: {
-    path: `/signIn`,
-  },
-};
+import { Navigate, createBrowserRouter } from 'react-router-dom';
+import ErrorPage from '../pages/error';
+import AdminHomePage from '../pages/adminHomePage';
+import SignInPage from '../pages/signInPage';
+import { RoutesMap } from './RoutesMap';
 
 export const appRouter = createBrowserRouter([
   {
@@ -24,7 +16,7 @@ export const appRouter = createBrowserRouter([
     // lazy: () => import("./projects"),
   },
   {
-    path: "*",
+    path: '*',
     element: <Navigate to={RoutesMap.signIn.path} />,
     index: true,
     // lazy: () => import("./projects"),
