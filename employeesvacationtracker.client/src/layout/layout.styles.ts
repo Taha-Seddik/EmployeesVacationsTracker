@@ -1,9 +1,23 @@
 import Drawer from '@mui/material/Drawer';
-import { sideNavHeadColor, sideNavWidth } from '../utils/constants';
+import { highestZIndex, primaryColor, primaryColorNoTrans, sideNavHeadColor, sideNavWidth } from '../utils/constants';
 import { styled } from '@mui/material/styles';
 import { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
+import Paper from '@mui/material/Paper';
+
+export const BottomLeftImg = styled('img')(() => ({
+  position: 'absolute',
+  bottom: 0,
+  left: '-70px',
+  width: 450,
+}));
+
+export const TopRightImg = styled('img')(() => ({
+  position: 'absolute',
+  top: '-40px',
+  right: '-40px',
+}));
 
 export const SideNavDrawer = styled(Drawer)(({ theme, open }) => ({
   width: open ? sideNavWidth : 0,
@@ -35,7 +49,7 @@ export const SideNavDrawer = styled(Drawer)(({ theme, open }) => ({
     borderRadius: '5px',
   },
   '& .navItem.Mui-selected': {
-    background: 'rgb(17,24,39,0.7)',
+    background: primaryColor,
   },
 }));
 
@@ -76,18 +90,32 @@ export const MainSideContainer = styled(Box, {
 }));
 
 export const MainSideTopBar = styled(MuiAppBar)(({ theme }) => ({
-  height: 68,
+  height: 'fit-content',
   padding: theme.spacing(0, 1),
   alignItems: 'center',
   justifyContent: 'center',
+  marginTop: theme.spacing(1),
   '& .innerContent': {
-    backgroundColor: sideNavHeadColor,
     width: '100%',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'start',
     justifyContent: 'center',
-    borderRadius: '5px',
-    marginTop: theme.spacing(0.5),
+    height: '100%',
+    // borderRadius: '5px',
+    // backgroundColor: sideNavHeadColor,
+    // marginTop: theme.spacing(0.5),
     padding: theme.spacing(1, 4),
   },
+}));
+
+export const AccountMenuWrapper = styled(Paper)(({ theme }) => ({
+  width: 240,
+  marginTop: theme.spacing(-1),
+  background: primaryColorNoTrans,
+  zIndex: highestZIndex,
+  position: 'relative',
+  padding: theme.spacing(1, 2),
+  color: 'white',
+  '& .menuItem': { borderRadius: '5px' },
+  '& svg': { color: 'white' },
 }));

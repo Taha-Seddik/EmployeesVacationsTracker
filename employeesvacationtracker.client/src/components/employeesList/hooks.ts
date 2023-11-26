@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDebounce } from '../../utils/useDebounce';
 import { makeTextSearch } from '../../utils/filter.utils';
-import { IEmployee } from '../../models/employee';
+import { IEmployee } from '../../models/entities/employee';
 
 export const useFetchEmployeesListingNeededData = () => {
   //   const dispatch = useDispatch<AppDispatch>();

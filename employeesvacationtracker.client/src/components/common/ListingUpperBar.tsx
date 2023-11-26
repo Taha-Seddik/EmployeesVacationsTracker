@@ -53,7 +53,7 @@ export const ListingUpperBar: React.FC<IProps> = (props) => {
       {/* create btn */}
       <Link to={toPath}>
         <Button variant='contained' color='primary' startIcon={<AddCircleOutline />}>
-          Ajouter un {topic}
+          Create new {topic}
         </Button>
       </Link>
     </Container>

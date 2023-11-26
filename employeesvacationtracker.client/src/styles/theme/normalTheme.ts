@@ -1,8 +1,9 @@
 import { createTheme } from '@mui/material/styles';
+import { primaryColor } from '../../utils/constants';
 
 const normalTheme = createTheme({
   palette: {
-    text: {},
+    primary: { main: primaryColor },
   },
   typography: {
     fontFamily: ['Inter Variable', 'sans-serif'].join(','),

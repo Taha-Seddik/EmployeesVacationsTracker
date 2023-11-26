@@ -50,6 +50,13 @@
   align-items: flex-start;
 }
 
+.flexEndCenterColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
 .flexRow {
   display: flex;
   flex-direction: row;

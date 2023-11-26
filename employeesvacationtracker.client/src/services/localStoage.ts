@@ -1,4 +1,4 @@
-import { IUser } from '../models/user';
+import { IUser } from '../models/entities/user';
 
 export class LocalStorageService {
   protected static get(key: string): string | null {

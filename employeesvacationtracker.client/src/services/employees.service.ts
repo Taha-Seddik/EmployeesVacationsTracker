@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IEmployee } from '../models/employee';
+import { IEmployee } from '../models/entities/employee';
 import { makeAuthHeader } from './authHeader.service';
 
 const baseUrl = process.env.BASE_URL;
