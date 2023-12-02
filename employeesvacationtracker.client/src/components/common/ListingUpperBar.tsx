@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import { useIsSm } from '../../utils/responsive.utils';
+import Tooltip from '@mui/material/Tooltip';
 
 const Container = styled('div')(() => ({}));
 
@@ -20,6 +22,8 @@ type IProps = {
 
 export const ListingUpperBar: React.FC<IProps> = (props) => {
   const { title, searchText, toPath, topic, handleNewSearch, clearSearchTxt } = props;
+  const isBelowMd = useIsSm();
+
   return (
     <Container className='flexStartCenterRow'>
       {/* title  */}
@@ -52,9 +56,17 @@ export const ListingUpperBar: React.FC<IProps> = (props) => {
       <span className='takeTheRest' />
       {/* create btn */}
       <Link to={toPath}>
-        <Button variant='contained' color='primary' startIcon={<AddCircleOutline />}>
-          Create new {topic}
-        </Button>
+        {isBelowMd ? (
+          <Tooltip title={`Create new ${topic}`}>
+            <IconButton color='primary' size='small'>
+              <AddCircleOutline />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Button variant='contained' color='primary' startIcon={<AddCircleOutline />}>
+            Create new {topic}
+          </Button>
+        )}
       </Link>
     </Container>
   );

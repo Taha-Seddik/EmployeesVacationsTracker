@@ -1,28 +1,19 @@
-import { styled } from '@mui/material/styles';
 import { ListingUpperBar } from '../../../components/common/ListingUpperBar';
 import { useEmployeesData } from '../../../components/employeesList/useEmployeesData';
 import { usePrepareEmployeesTableColumns } from '../../../components/employeesList/useTableConfig';
 import { RoutesMap } from '../../../routing/RoutesMap';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { IEmployee } from '../../../models/entities/employee';
 import ConfirmDialog from '../../../components/common/confirmDialog';
 import { DataGrid } from '@mui/x-data-grid/DataGrid';
 import { useState } from 'react';
-
-const Container = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(4),
-  flexGrow: 1,
-  background: '#ffffffa3',
-  zIndex: 99,
-  position: 'relative',
-}));
+import { PageContentContainer } from '../../../styles/base.styles';
 
 const EmployeesPage: React.FC<{}> = () => {
   const { searchText, employeesToShow, fetchRows, handleNewSearch, clearSearchTxt } = useEmployeesData();
 
   return (
-    <Container className='fullySizedFlexColumn' elevation={3}>
+    <PageContentContainer className='fullySizedFlexColumn' elevation={3}>
       <ListingUpperBar
         title='Employees'
         topic='Employee'
@@ -34,7 +25,7 @@ const EmployeesPage: React.FC<{}> = () => {
       <Box flexGrow={1} mt={2}>
         <EmployeesTable employees={employeesToShow} fetchRows={fetchRows} />
       </Box>
-    </Container>
+    </PageContentContainer>
   );
 };
 
