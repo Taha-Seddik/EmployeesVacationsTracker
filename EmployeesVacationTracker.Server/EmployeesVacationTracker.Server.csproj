@@ -18,9 +18,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EmployeesVacationTracker.Application\EmployeesVacationTracker.Application.csproj" />
     <ProjectReference Include="..\employeesvacationtracker.client\employeesvacationtracker.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\EmployeesVacationTracker.Domain\EmployeesVacationTracker.Domain.csproj" />
+    <ProjectReference Include="..\EmployeesVacationTracker.Infrastructure\EmployeesVacationTracker.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

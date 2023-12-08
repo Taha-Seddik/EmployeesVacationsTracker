@@ -1,5 +1,5 @@
 export interface IEmployee {
-  id: string; // identifier
+  id: number; // identifier
   jobTitle: string;
   departement: keyof typeof Departments;
   role: string;
