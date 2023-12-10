@@ -9,7 +9,7 @@ namespace EmployeesVacationTracker.Application;
 
 public static class ConfigureServices
 {
-    public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
+    public static void RegisterApplicationLayerServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(_ => _.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         services.AddAutoMapper(Assembly.GetExecutingAssembly());

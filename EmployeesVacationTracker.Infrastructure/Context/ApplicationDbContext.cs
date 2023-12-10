@@ -1,7 +1,6 @@
 ﻿using EmployeesVacationTracker.DomainLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using EmployeesVacationTracker.Server.Models;
 
 namespace EmployeesVacationTracker.Infrastructure.Context;
 

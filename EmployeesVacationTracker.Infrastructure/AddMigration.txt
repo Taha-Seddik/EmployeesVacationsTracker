@@ -1,0 +1,6 @@
+﻿cd EmployeesVacationTracker.Server
+dotnet ef --project ../EmployeesVacationTracker.Infrastructure --startup-project ./ migrations add "migration" --context ApplicationDbContext
+
+//update
+dotnet ef --project ../EmployeeCrud.Data --startup-project ./ database update --context DataContext
+
