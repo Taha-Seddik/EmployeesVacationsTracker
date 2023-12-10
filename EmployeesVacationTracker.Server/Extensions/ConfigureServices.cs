@@ -1,5 +1,5 @@
-using EmployeesVacationTracker.Domain.Entities;
 using EmployeesVacationTracker.Infrastructure.Context;
+using EmployeesVacationTracker.Server.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeesVacationTracker.Server.Extensions;

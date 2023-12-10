@@ -1,4 +1,4 @@
-﻿using EmployeesVacationTracker.Domain.Entities;
+﻿using EmployeesVacationTracker.DomainLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesVacationTracker.Infrastructure.Context;

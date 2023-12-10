@@ -1,5 +1,5 @@
 ﻿using EmployeesVacationTracker.Application.Common.Interfaces;
-using EmployeesVacationTracker.Domain.Entities;
+using EmployeesVacationTracker.DomainLayer.Entities;
 using EmployeesVacationTracker.Infrastructure.Context;
 
 namespace EmployeesVacationTracker.Infrastructure.Repositories

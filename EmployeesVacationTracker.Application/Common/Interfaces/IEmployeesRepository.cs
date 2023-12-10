@@ -1,4 +1,4 @@
-﻿using EmployeesVacationTracker.Domain.Entities;
+﻿using EmployeesVacationTracker.DomainLayer.Entities;
 
 namespace EmployeesVacationTracker.Application.Common.Interfaces
 {

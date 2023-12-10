@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EmployeesVacationTracker.Application\EmployeesVacationTracker.Application.csproj" />
-    <ProjectReference Include="..\EmployeesVacationTracker.Domain\EmployeesVacationTracker.Domain.csproj" />
+    <ProjectReference Include="..\EmployeesVacationTracker.DomainLayer\EmployeesVacationTracker.DomainLayer.csproj" />
   </ItemGroup>
 
 </Project>

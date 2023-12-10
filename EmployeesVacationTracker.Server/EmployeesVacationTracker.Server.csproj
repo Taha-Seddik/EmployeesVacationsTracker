@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -26,7 +26,7 @@
     <ProjectReference Include="..\employeesvacationtracker.client\employeesvacationtracker.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\EmployeesVacationTracker.Domain\EmployeesVacationTracker.Domain.csproj" />
+    <ProjectReference Include="..\EmployeesVacationTracker.DomainLayer\EmployeesVacationTracker.DomainLayer.csproj" />
     <ProjectReference Include="..\EmployeesVacationTracker.Infrastructure\EmployeesVacationTracker.Infrastructure.csproj" />
   </ItemGroup>
 
