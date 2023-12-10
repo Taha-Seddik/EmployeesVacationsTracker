@@ -15,6 +15,7 @@ namespace EmployeesVacationTracker.DomainLayer.Entities
         public string JobTitle { get; set; }
         public EmployeeDepartment Department { get; set;}
         public DateTimeOffset JoiningDate { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace EmployeesVacationTracker.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initMigration : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +30,8 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -50,22 +50,6 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Department = table.Column<int>(type: "int", nullable: false),
-                    JoiningDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -174,21 +158,26 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "Id", "Department", "JobTitle", "JoiningDate", "UserId" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
                 {
-                    { 1, 0, "Frontend developer", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9850), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 2, 1, "UI/UX Designer", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9875), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 3, 0, "Backend Developer", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9876), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 4, 0, "DevOps Engineer", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9878), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 5, 3, "HR Coordinator", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9879), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 6, 3, "Talent Acquisition Specialist", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9881), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 7, 3, "HR Project Manager", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9882), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 8, 2, "QA Engineer", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9883), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 9, 2, "Performance Tester", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9885), new TimeSpan(0, 1, 0, 0, 0)), 0 },
-                    { 10, 1, "Product Designer", new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9886), new TimeSpan(0, 1, 0, 0, 0)), 0 }
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    JobTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Department = table.Column<int>(type: "int", nullable: false),
+                    JoiningDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -229,6 +218,12 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_UserId",
+                table: "Employees",
+                column: "UserId",
+                unique: true);
         }
 
         /// <inheritdoc />

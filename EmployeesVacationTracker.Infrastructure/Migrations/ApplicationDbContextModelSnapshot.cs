@@ -41,6 +41,14 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -105,94 +113,16 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("JoiningDate")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Department = 0,
-                            JobTitle = "Frontend developer",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9850), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Department = 1,
-                            JobTitle = "UI/UX Designer",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9875), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Department = 0,
-                            JobTitle = "Backend Developer",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9876), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Department = 0,
-                            JobTitle = "DevOps Engineer",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9878), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Department = 3,
-                            JobTitle = "HR Coordinator",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9879), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Department = 3,
-                            JobTitle = "Talent Acquisition Specialist",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9881), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Department = 3,
-                            JobTitle = "HR Project Manager",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9882), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Department = 2,
-                            JobTitle = "QA Engineer",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9883), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Department = 2,
-                            JobTitle = "Performance Tester",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9885), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Department = 1,
-                            JobTitle = "Product Designer",
-                            JoiningDate = new DateTimeOffset(new DateTime(2023, 12, 10, 17, 0, 10, 761, DateTimeKind.Unspecified).AddTicks(9886), new TimeSpan(0, 1, 0, 0, 0)),
-                            UserId = 0
-                        });
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -328,6 +258,17 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EmployeesVacationTracker.DomainLayer.Entities.Employee", b =>
+                {
+                    b.HasOne("EmployeesVacationTracker.DomainLayer.Entities.ApplicationUser", "User")
+                        .WithOne("Employee")
+                        .HasForeignKey("EmployeesVacationTracker.DomainLayer.Entities.Employee", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -376,6 +317,12 @@ namespace EmployeesVacationTracker.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EmployeesVacationTracker.DomainLayer.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Employee")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

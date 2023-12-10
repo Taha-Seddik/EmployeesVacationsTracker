@@ -20,6 +20,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         modelBuilder.Seed();
 
         base.OnModelCreating(modelBuilder);
+
+        // Configure Employee/ApplicationUser one-to-one relationship
+        modelBuilder.Entity<ApplicationUser>()
+            .HasOne(u => u.Employee)
+            .WithOne(p => p.User)
+            .HasForeignKey<Employee>(p => p.UserId);
     }
 
 }

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using EmployeesVacationTracker.DomainLayer.Entities;
+using EmployeesVacationTracker.Infrastructure.Context.Seeding;
 
 namespace EmployeesVacationTracker.Infrastructure;
 
@@ -23,6 +24,9 @@ public static class ConfigureServices
         });
 
         ConfigureIdentity(services);
+
+        // Register IDbContextSeeder
+        services.AddScoped<IDbContextSeeder, IdentityDbContextSeeder>();
     }
 
     private static void ConfigureIdentity(IServiceCollection services)

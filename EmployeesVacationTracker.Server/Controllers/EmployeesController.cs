@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmployeesVacationTracker.Server.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class EmployeesController : ControllerBase
 {
     private readonly IMediator _mediator;

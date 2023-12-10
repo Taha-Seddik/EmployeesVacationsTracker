@@ -11,7 +11,6 @@ import { PageContentContainer } from '../../../styles/base.styles';
 
 const EmployeesPage: React.FC<{}> = () => {
   const { searchText, employeesToShow, fetchRows, handleNewSearch, clearSearchTxt } = useEmployeesData();
-
   return (
     <PageContentContainer className='fullySizedFlexColumn' elevation={3}>
       <ListingUpperBar

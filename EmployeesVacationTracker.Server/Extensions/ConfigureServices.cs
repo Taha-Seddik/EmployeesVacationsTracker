@@ -1,3 +1,4 @@
+using EmployeesVacationTracker.Infrastructure.Context.Seeding;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -8,6 +9,7 @@ public static class ConfigureServices
 {
     public static void ConfigureServerServices(this IServiceCollection services)
     {
+       
     }
 
     //private static void ConfigureAuth(IServiceCollection services, JwtTokenConfig jwtTokenConfig)

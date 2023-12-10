@@ -17,7 +17,7 @@ const MainSideContent = styled(Paper)(({ theme }) => ({
 
 export const AdminMainSide: React.FC<IProps> = ({ toggleDrawer, children }) => {
   return (
-    <MainSideContainer elevation={12} square={false}>
+    <MainSideContainer elevation={12}>
       {/* Top bar  */}
       <MainSideTopBarRoot toggleDrawer={toggleDrawer} />
       <MainSideContent>{children}</MainSideContent>

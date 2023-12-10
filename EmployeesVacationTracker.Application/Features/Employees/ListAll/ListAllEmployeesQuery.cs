@@ -25,8 +25,15 @@ public class ListAllEmployeesQueryHandler : IRequestHandler<ListAllEmployeesQuer
 
     public async Task<ListAllEmployeesQueryResponse> Handle(ListAllEmployeesQuery request, CancellationToken cancellationToken)
     {
-        var employees = await _employeesRepo.ListAllAsync(cancellationToken);
-        var dtos = employees.Select(x => _mapper.Map<EmployeeDTO>(x)).ToList().AsReadOnly();
+        var employees = await _employeesRepo.ListAllWithUserFilled(cancellationToken);
+        var dtos = employees.Select(x =>
+        {
+            var basicDto = _mapper.Map<EmployeeDTO>(x);
+            basicDto.FirstName = x.User.FirstName;
+            basicDto.LastName = x.User.LastName;
+            basicDto.Email = x.User.Email!;
+            return basicDto;
+        }).ToList().AsReadOnly();
         return new ListAllEmployeesQueryResponse()
         {
             Employees = dtos

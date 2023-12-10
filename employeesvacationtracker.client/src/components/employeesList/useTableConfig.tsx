@@ -2,6 +2,7 @@ import { GridColDef, GridValueFormatterParams } from '@mui/x-data-grid/models';
 import { useCallback, useEffect, useState } from 'react';
 import { formattedNiceDate } from '../../utils/dates.utils';
 import { ActionsRendrer } from './renderers/actionsCell';
+import { Departments } from '../../models/entities/employee';
 
 export const usePrepareEmployeesTableColumns = (setOpenConfirm: (status: boolean) => void) => {
   const [columns, setColumns] = useState<GridColDef[]>([]);
@@ -16,8 +17,17 @@ export const usePrepareEmployeesTableColumns = (setOpenConfirm: (status: boolean
       { field: 'firstName', headerName: 'First Name', width: 150 },
       { field: 'lastName', headerName: 'Last Name', width: 150 },
       { field: 'jobTitle', headerName: 'Job Title', width: 150 },
-      { field: 'departement', headerName: 'Departement', width: 200 },
-      { field: 'role', headerName: 'Role', width: 200 },
+      {
+        field: 'department',
+        headerName: 'Departement',
+        width: 200,
+        valueFormatter: (params: GridValueFormatterParams) => {
+          return Departments[params.value];
+          // const date = new Date(params.value);
+          // return formattedNiceDate(date);
+        },
+      },
+      // { field: 'role', headerName: 'Role', width: 200 },
       {
         field: 'joiningDate',
         headerName: 'Joining Date',

@@ -3,6 +3,7 @@ using EmployeesVacationTracker.Application;
 using EmployeesVacationTracker.Infrastructure;
 using EmployeesVacationTracker.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using EmployeesVacationTracker.Infrastructure.Context.Seeding;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,6 +52,10 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<ApplicationDbContext>();
     context.Database.Migrate();
+
+    // Seed the data
+    var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbContextSeeder>();
+    dbInitializer.SeedAsync(context).Wait();
 }
 
 app.MapFallbackToFile("/index.html");
