@@ -1,6 +1,6 @@
-﻿using EmployeesVacationTracker.Domain.Common;
+﻿using EmployeesVacationTracker.DomainLayer.Common;
 
-namespace EmployeesVacationTracker.Domain.Entities
+namespace EmployeesVacationTracker.DomainLayer.Entities
 {
     public enum EmployeeDepartment
     {
@@ -16,7 +16,5 @@ namespace EmployeesVacationTracker.Domain.Entities
         public EmployeeDepartment Department { get; set;}
         public DateTimeOffset JoiningDate { get; set; }
         public int UserId { get; set; }
-
-
     }
 }
