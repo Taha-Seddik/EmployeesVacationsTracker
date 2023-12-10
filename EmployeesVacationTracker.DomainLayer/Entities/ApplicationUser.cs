@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace EmployeesVacationTracker.Server.Models;
+namespace EmployeesVacationTracker.DomainLayer.Entities;
 
 public class ApplicationUser : IdentityUser
 {
-    // Additional properties if needed
 }

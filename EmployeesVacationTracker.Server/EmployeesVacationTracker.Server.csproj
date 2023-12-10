@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -28,6 +28,10 @@
     </ProjectReference>
     <ProjectReference Include="..\EmployeesVacationTracker.DomainLayer\EmployeesVacationTracker.DomainLayer.csproj" />
     <ProjectReference Include="..\EmployeesVacationTracker.Infrastructure\EmployeesVacationTracker.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

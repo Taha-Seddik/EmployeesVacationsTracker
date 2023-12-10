@@ -1,11 +1,11 @@
 ﻿using EmployeesVacationTracker.DomainLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using EmployeesVacationTracker.Server.Models;
 
 namespace EmployeesVacationTracker.Infrastructure.Context;
 
-public class ApplicationDbContext : IdentityDbContext<IdentityUser>, IApplicationDbContext
+public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

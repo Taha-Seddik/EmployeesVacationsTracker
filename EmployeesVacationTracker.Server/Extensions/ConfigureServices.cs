@@ -1,6 +1,6 @@
-using EmployeesVacationTracker.Infrastructure.Context;
-using EmployeesVacationTracker.Server.Models;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EmployeesVacationTracker.Server.Extensions;
 
@@ -8,21 +8,32 @@ public static class ConfigureServices
 {
     public static void ConfigureServerServices(this IServiceCollection services)
     {
-        ConfigureIdentity(services);
     }
 
-    private static void ConfigureIdentity(IServiceCollection services)
-    {
-        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-        {
-            options.Password.RequireDigit = true;
-            options.Password.RequiredLength = 8;
-            options.Password.RequiredUniqueChars = 1;
-            options.Password.RequireLowercase = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-        })
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
-    }
+    //private static void ConfigureAuth(IServiceCollection services, JwtTokenConfig jwtTokenConfig)
+    //{
+    //    // Auth stuff - JWT
+    //    services.AddAuthentication(options =>
+    //    {
+    //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    //        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    //    })
+    //    .AddJwtBearer(options =>
+    //    {
+    //        options.SaveToken = true;
+    //        options.RequireHttpsMetadata = true;
+    //        options.TokenValidationParameters = new TokenValidationParameters
+    //        {
+    //            ValidateIssuer = true,
+    //            ValidIssuer = jwtTokenConfig.Issuer,
+    //            ValidateIssuerSigningKey = true,
+    //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.Secret)),
+    //            ValidAudience = jwtTokenConfig.Audience,
+    //            ValidateAudience = true,
+    //            ValidateLifetime = true,
+    //            ClockSkew = TimeSpan.FromMinutes(1)
+    //        };
+    //    });
+    //}
 }

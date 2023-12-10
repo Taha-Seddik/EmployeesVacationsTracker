@@ -4,6 +4,8 @@ using EmployeesVacationTracker.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using EmployeesVacationTracker.DomainLayer.Entities;
 
 namespace EmployeesVacationTracker.Infrastructure;
 
@@ -20,12 +22,23 @@ public static class ConfigureServices
             options.UseSqlServer(configuration.GetConnectionString("SQLDatabase"));
         });
 
+        ConfigureIdentity(services);
     }
-
 
     private static void ConfigureIdentity(IServiceCollection services)
     {
-        // Identity stuff 
-      
+        services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+        {
+            options.Password.RequireDigit = true;
+            options.Password.RequiredLength = 8;
+            options.Password.RequiredUniqueChars = 1;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+        })
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddDefaultTokenProviders();
     }
+
+
 }

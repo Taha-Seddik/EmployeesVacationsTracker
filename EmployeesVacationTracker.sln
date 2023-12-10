@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeesVacationTracker.Se
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "employeesvacationtracker.client", "employeesvacationtracker.client\employeesvacationtracker.client.esproj", "{AB6A8F24-3186-4218-BFC2-DA807F3A9522}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeesVacationTracker.Domain", "EmployeesVacationTracker.Domain\EmployeesVacationTracker.Domain.csproj", "{B783C8B5-E76E-41F3-8837-B1057C274EBF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeesVacationTracker.Infrastructure", "EmployeesVacationTracker.Infrastructure\EmployeesVacationTracker.Infrastructure.csproj", "{9CB2A40E-C2BF-4EB1-BC29-7E855C5FA2EB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeesVacationTracker.Application", "EmployeesVacationTracker.Application\EmployeesVacationTracker.Application.csproj", "{161BCE5D-5B2A-4E93-8A97-49D88E9B1E05}"
@@ -17,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeesVacationTracker.DomainLayer", "EmployeesVacationTracker.DomainLayer\EmployeesVacationTracker.DomainLayer.csproj", "{629AC51C-D824-4CC5-A854-ED4DDA2D0942}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +34,6 @@ Global
 		{AB6A8F24-3186-4218-BFC2-DA807F3A9522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB6A8F24-3186-4218-BFC2-DA807F3A9522}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB6A8F24-3186-4218-BFC2-DA807F3A9522}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{B783C8B5-E76E-41F3-8837-B1057C274EBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B783C8B5-E76E-41F3-8837-B1057C274EBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B783C8B5-E76E-41F3-8837-B1057C274EBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B783C8B5-E76E-41F3-8837-B1057C274EBF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9CB2A40E-C2BF-4EB1-BC29-7E855C5FA2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9CB2A40E-C2BF-4EB1-BC29-7E855C5FA2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CB2A40E-C2BF-4EB1-BC29-7E855C5FA2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +42,10 @@ Global
 		{161BCE5D-5B2A-4E93-8A97-49D88E9B1E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{161BCE5D-5B2A-4E93-8A97-49D88E9B1E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{161BCE5D-5B2A-4E93-8A97-49D88E9B1E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{629AC51C-D824-4CC5-A854-ED4DDA2D0942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{629AC51C-D824-4CC5-A854-ED4DDA2D0942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{629AC51C-D824-4CC5-A854-ED4DDA2D0942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{629AC51C-D824-4CC5-A854-ED4DDA2D0942}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
