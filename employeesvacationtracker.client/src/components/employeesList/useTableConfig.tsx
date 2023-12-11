@@ -23,11 +23,8 @@ export const usePrepareEmployeesTableColumns = (setOpenConfirm: (status: boolean
         width: 200,
         valueFormatter: (params: GridValueFormatterParams) => {
           return Departments[params.value];
-          // const date = new Date(params.value);
-          // return formattedNiceDate(date);
         },
       },
-      // { field: 'role', headerName: 'Role', width: 200 },
       {
         field: 'joiningDate',
         headerName: 'Joining Date',

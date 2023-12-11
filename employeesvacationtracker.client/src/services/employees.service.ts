@@ -15,9 +15,8 @@ export const fetchEmployeesForAdmin = (): Promise<AxiosResponse<{ employees: IEm
   return axios.get(url, config);
 };
 
-export const createEmployee = (
-  data: CreateOrUpdateEmployeeRequest,
-): Promise<AxiosResponse<{ employees: IEmployee[] }>> => {
+// returns employee id
+export const createEmployee = (data: CreateOrUpdateEmployeeRequest): Promise<AxiosResponse<number>> => {
   const url = `${apiUrl}`;
   const config = {
     headers: {
@@ -25,4 +24,14 @@ export const createEmployee = (
     },
   };
   return axios.post(url, data, config);
+};
+
+export const deleteEmployee = (employeeId: number): Promise<AxiosResponse<void>> => {
+  const url = `${apiUrl}/${employeeId}`;
+  const config = {
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  };
+  return axios.delete(url, config);
 };

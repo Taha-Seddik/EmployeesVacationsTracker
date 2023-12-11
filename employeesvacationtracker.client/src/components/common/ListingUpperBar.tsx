@@ -16,6 +16,7 @@ type IProps = {
   searchText: string;
   toPath: string;
   topic: string;
+  searchPlaceholder?: string;
   handleNewSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
   clearSearchTxt: () => void;
 };
@@ -35,7 +36,7 @@ export const ListingUpperBar: React.FC<IProps> = (props) => {
         id='searchInput'
         type='text'
         name='searchInput'
-        placeholder='Rechercher par titre ou réference'
+        placeholder={props.searchPlaceholder}
         margin='dense'
         size='small'
         value={searchText}

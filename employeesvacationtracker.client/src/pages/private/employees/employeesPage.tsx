@@ -8,6 +8,8 @@ import ConfirmDialog from '../../../components/common/confirmDialog';
 import { DataGrid } from '@mui/x-data-grid/DataGrid';
 import { useState } from 'react';
 import { PageContentContainer } from '../../../styles/base.styles';
+import { deleteEmployee } from '../../../services/employees.service';
+import { Notify } from '../../../services/toast.service';
 
 const EmployeesPage: React.FC<{}> = () => {
   const { searchText, employeesToShow, fetchRows, handleNewSearch, clearSearchTxt } = useEmployeesData();
@@ -16,6 +18,7 @@ const EmployeesPage: React.FC<{}> = () => {
       <ListingUpperBar
         title='Employees'
         topic='Employee'
+        searchPlaceholder='Search by firstName lastName or jobTitle'
         toPath={RoutesMap.createEmployee.path}
         searchText={searchText}
         handleNewSearch={handleNewSearch}
@@ -39,7 +42,18 @@ const EmployeesTable: React.FC<ITableProps> = ({ employees, fetchRows }) => {
 
   const { columns } = usePrepareEmployeesTableColumns(setOpenConfirm);
 
-  const confirmDeleteProduct = () => {};
+  const confirmDeleteProduct = async () => {
+    const chosenEmployeeId = selectedRowsIds?.[0];
+    if (!chosenEmployeeId) return;
+    try {
+      await deleteEmployee(Number(chosenEmployeeId));
+      Notify('Produit supprimé avec succés', 'SUCCESS');
+      fetchRows();
+    } catch (err: any) {
+      const errorInfo = err?.response?.data?.errors?.[0].Message;
+      Notify(errorInfo, 'Error');
+    }
+  };
 
   return (
     <Box display='flex' flexDirection='column' className='fullHW'>

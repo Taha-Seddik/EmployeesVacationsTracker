@@ -15,14 +15,14 @@ export const ActionsRendrer = ({ setOpenConfirm }: Partial<GridRowParams> & Addi
 
   return (
     <Box display='flex' justifyContent='center' width='100%'>
-      <Tooltip title='Modifier le produit'>
+      <Tooltip title='Edit employee'>
         <NavLink to={RoutesMap.editEmployee.path}>
           <IconButton size='small' color='default' aria-label='edit'>
             <Edit />
           </IconButton>
         </NavLink>
       </Tooltip>
-      <Tooltip title='Supprimer le produit'>
+      <Tooltip title='Delete employee'>
         <IconButton size='small' color='default' aria-label='delete' onClick={startDeleteProduct}>
           <Delete />
         </IconButton>

@@ -1,6 +1,7 @@
 using EmployeesVacationTracker.Application.Features.Employees.Create;
 using EmployeesVacationTracker.Application.Features.Employees.Delete;
 using EmployeesVacationTracker.Application.Features.Employees.ListAll;
+using EmployeesVacationTracker.Application.Features.Employees.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,10 +32,21 @@ public class EmployeesController : ControllerBase
         return Ok(newlyCreatedEmployeeId);
     }
 
-    [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public async Task<IActionResult> DeleteEmployee(DeleteEmployeeCommand payload)
+    [HttpPut]
+    public async Task<IActionResult> UpdateEmployee(UpdateEmployeeCommand payload)
     {
+        await _mediator.Send(payload);
+        return Ok();
+    }
+
+    [HttpDelete("{employeeId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> DeleteEmployee([FromRoute] int employeeId)
+    {
+        var payload = new DeleteEmployeeCommand()
+        {
+            EmployeeId = employeeId
+        };
         await _mediator.Send(payload);
         return Ok();
     }

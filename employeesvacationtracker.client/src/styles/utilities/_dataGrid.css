@@ -26,6 +26,14 @@
   justify-content: center;
 }
 
+.MuiDataGrid-columnHeader:last-child {
+  border-right: 0px !important;
+}
+
+.MuiDataGrid-cell:nth-last-child(2) {
+  border-right: 0px !important;
+}
+
 /* DARK THEME
 
 .MuiDataGrid-root {

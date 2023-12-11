@@ -5,6 +5,9 @@ export interface IEmployee {
   role: string;
   joiningDate: string;
   userId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
 }
 
 export enum Departments {

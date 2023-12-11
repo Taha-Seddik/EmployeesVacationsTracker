@@ -31,7 +31,6 @@ const EmployeeEditionPage: React.FC<{}> = () => {
       Notify('Employee created successfully!', 'SUCCESS');
       navigate(RoutesMap.employees.path);
     } catch (err: any) {
-      console.error('zut', err);
       const errorInfo = err?.response?.data?.errors?.[0].Message;
       Notify(errorInfo, 'Error');
     }

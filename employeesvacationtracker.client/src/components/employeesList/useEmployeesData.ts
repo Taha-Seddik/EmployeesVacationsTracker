@@ -34,8 +34,7 @@ export const useEmployeesData = () => {
   }, [employees]);
 
   const handleProcessSearching = (newVal: string) => {
-    // const searchResult = makeTextSearch(employees, newVal, ['title', 'reference']);
-    const searchResult = makeTextSearch(employees, newVal, []);
+    const searchResult = makeTextSearch(employees, newVal, ['email', 'firstName', 'jobTitle']);
     const newOnesForDispaly = searchResult!.items;
     setEmployeesToShow(newOnesForDispaly);
   };
