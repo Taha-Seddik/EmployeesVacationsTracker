@@ -14,16 +14,22 @@ export enum Departments {
   HR,
 }
 
-export interface CreateOrUpdateFormData {
+export interface CreateOrUpdateEmployeeFormData {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
   jobTitle: string;
-  departement: string;
-  role: string;
+  department: Departments;
   joiningDate: Date;
 }
 
 export interface CreateOrUpdateEmployeeRequest {
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
   jobTitle: string;
-  departement: string;
-  role: string;
+  department: Departments;
   joiningDate: string;
 }
