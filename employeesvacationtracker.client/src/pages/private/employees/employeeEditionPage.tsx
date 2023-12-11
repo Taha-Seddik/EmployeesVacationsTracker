@@ -26,10 +26,15 @@ const EmployeeEditionPage: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (data: CreateOrUpdateEmployeeFormData) => {
-    console.log(mapFormDataToRequestData(data));
-    // await createEmployee(mapFormDataToRequestData(data));
-    // Notify('Employee created successfully!', 'SUCCESS');
-    // navigate(RoutesMap.employees.path);
+    try {
+      await createEmployee(mapFormDataToRequestData(data));
+      Notify('Employee created successfully!', 'SUCCESS');
+      navigate(RoutesMap.employees.path);
+    } catch (err: any) {
+      console.error('zut', err);
+      const errorInfo = err?.response?.data?.errors?.[0].Message;
+      Notify(errorInfo, 'Error');
+    }
   };
 
   return (

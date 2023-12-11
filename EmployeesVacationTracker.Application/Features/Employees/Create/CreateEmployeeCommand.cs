@@ -15,7 +15,6 @@ public class CreateEmployeeCommand : IRequest<int>
     public string JobTitle { get; set; }
     public EmployeeDepartment Department { get; set; }
     public DateTimeOffset JoiningDate { get; set; }
-    public int UserId { get; set; }
 }
 
 public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeCommand, int>
@@ -33,9 +32,6 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
 
     public async Task<int> Handle(CreateEmployeeCommand request, CancellationToken cancellationToken)
     {
-        var newEmployee = _mapper.Map<Employee>(request);
-        newEmployee = await _employeesRepo.AddAsync(newEmployee, cancellationToken);
-
         // add user infos
         var newUser = new ApplicationUser
         {
@@ -44,8 +40,18 @@ public class CreateEmployeeCommandHandler : IRequestHandler<CreateEmployeeComman
             FirstName = request.FirstName,
             LastName = request.LastName
         };
-        await _userManager.CreateAsync(newUser, request.Password);
+        var result = await _userManager.CreateAsync(newUser, request.Password);
+        if (!result.Succeeded)
+        {
+            var msg = string.Join(", ", result.Errors.Select(x => x.Description));
+            throw new InvalidOperationException(msg);
+        }
         await _userManager.AddToRoleAsync(newUser, "User");
+
+        // create employee
+        var newEmployee = _mapper.Map<Employee>(request);
+        newEmployee.UserId = newUser.Id; // setup userId
+        newEmployee = await _employeesRepo.AddAsync(newEmployee, cancellationToken);
 
         return newEmployee.Id;
     }

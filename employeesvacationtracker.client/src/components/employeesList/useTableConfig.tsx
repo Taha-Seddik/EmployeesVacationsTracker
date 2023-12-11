@@ -32,7 +32,7 @@ export const usePrepareEmployeesTableColumns = (setOpenConfirm: (status: boolean
         field: 'joiningDate',
         headerName: 'Joining Date',
         type: 'date',
-        width: 200,
+        width: 300,
         valueFormatter: (params: GridValueFormatterParams) => {
           const date = new Date(params.value);
           return formattedNiceDate(date);

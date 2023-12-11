@@ -4,6 +4,7 @@ using EmployeesVacationTracker.Infrastructure;
 using EmployeesVacationTracker.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using EmployeesVacationTracker.Infrastructure.Context.Seeding;
+using EmployeesVacationTracker.Server;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,9 @@ var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
+// exception middleware
+app.UseMiddleware<ExceptionMiddleware>();
 
 // auth config
 app.UseAuthentication();

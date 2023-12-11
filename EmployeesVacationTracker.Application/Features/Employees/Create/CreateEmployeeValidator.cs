@@ -1,13 +1,32 @@
-﻿using EmployeesVacationTracker.Application.Common.Interfaces;
+﻿using EmployeesVacationTracker.DomainLayer.Entities;
 using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeesVacationTracker.Application.Features.Employees.Create;
 
 public class CreateChocolateBarCommandValidator : AbstractValidator<CreateEmployeeCommand>
 {
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CreateChocolateBarCommandValidator()
+    public CreateChocolateBarCommandValidator(UserManager<ApplicationUser> userManager)
     {
+        _userManager = userManager;
+
+        RuleFor(model => model.Email)
+           .NotEmpty().WithMessage("Email is required.")
+           .MustAsync(BeUniqueEmail).WithMessage("Email Already exists!");
+
+        RuleFor(model => model.FirstName)
+           .NotEmpty().WithMessage("FirstName is required.");
+
+        RuleFor(model => model.LastName)
+           .NotEmpty().WithMessage("LastName is required.");
+
+        RuleFor(model => model.Password)
+            .NotEmpty().WithMessage("Password is required.")
+            .MinimumLength(8).WithMessage("Password must be at least 8 characters.")
+            .Must(ContainDigit).WithMessage("Password must contain at least one digit.");
+
         RuleFor(v => v.JobTitle)
             .NotEmpty().WithMessage("JobTitle is required.")
             .MaximumLength(80).WithMessage("JobTitle must not exceed 80 characters.");
@@ -18,17 +37,19 @@ public class CreateChocolateBarCommandValidator : AbstractValidator<CreateEmploy
 
         RuleFor(v => v.JoiningDate)
           .NotNull().WithMessage("JoiningDate is required.");
+    }
 
-        RuleFor(v => v.UserId)
-         .NotNull().WithMessage("FactoryId is required.");
-          //.MustAsync(FactoryShouldExists).WithMessage("The specified factory should exists.");
+    private bool ContainDigit(string password)
+    {
+        return password.Any(char.IsDigit);
+    }
+
+    public async Task<bool> BeUniqueEmail(string email, CancellationToken token)
+    {
+       var foundUser = await _userManager.FindByEmailAsync(email);
+        return foundUser == null;
     }
 
 }
 
 
-//public async Task<bool> BeUniqueUserId(string newChocolateName, CancellationToken cancellationToken)
-//{
-//   @TODO
-//   return await _usersRepo.get(newChocolateName, cancellationToken);
-//}
