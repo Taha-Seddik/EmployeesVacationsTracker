@@ -12,7 +12,7 @@ export const RoutesMap = {
     path: `/private/employees/create`,
   },
   editEmployee: {
-    path: `/private/employees/:id/edit`,
+    path: `/private/employees/:employeeId/edit`,
   },
   vacations: {
     path: `/private/vacations`,
@@ -23,4 +23,8 @@ export const RoutesMap = {
   editVacation: {
     path: `/private/vacations/:id/edit`,
   },
+};
+
+export const makeEditEmployeeRoute = (empId: number) => {
+  return `/private/employees/${empId}/edit`;
 };

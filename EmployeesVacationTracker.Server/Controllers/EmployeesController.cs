@@ -1,6 +1,6 @@
 using EmployeesVacationTracker.Application.Features.Employees.Create;
 using EmployeesVacationTracker.Application.Features.Employees.Delete;
-using EmployeesVacationTracker.Application.Features.Employees.ListAll;
+using EmployeesVacationTracker.Application.Features.Employees.GetOneOrMany;
 using EmployeesVacationTracker.Application.Features.Employees.Update;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +22,13 @@ public class EmployeesController : ControllerBase
     public async Task<IActionResult> GetAsync()
     {
         var response = await _mediator.Send(new ListAllEmployeesQuery());
+        return Ok(response);
+    }
+
+    [HttpGet("{employeeId}")]
+    public async Task<IActionResult> GetOneAsync([FromRoute] int employeeId)
+    {
+        var response = await _mediator.Send(new GetOneEmployeeQuery() { EmployeeId = employeeId });
         return Ok(response);
     }
 

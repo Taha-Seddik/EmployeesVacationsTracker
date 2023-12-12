@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from '../../utils/useDebounce';
 import { makeTextSearch } from '../../utils/filter.utils';
 import { IEmployee } from '../../models/entities/employee';
-import { fetchEmployeesForAdmin } from '../../services/employees.service';
+import { getAllEmployees } from '../../services/employees.service';
 
 export const useFetchEmployeesListingNeededData = () => {
   //   const dispatch = useDispatch<AppDispatch>();
@@ -13,7 +13,7 @@ export const useFetchEmployeesListingNeededData = () => {
   }, []);
 
   const fetchRows = async () => {
-    const res = await fetchEmployeesForAdmin();
+    const res = await getAllEmployees();
     setEmployees(res.data?.employees);
   };
 

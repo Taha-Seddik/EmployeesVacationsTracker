@@ -2,7 +2,7 @@
 using EmployeesVacationTracker.Application.Common.Interfaces;
 using MediatR;
 
-namespace EmployeesVacationTracker.Application.Features.Employees.ListAll;
+namespace EmployeesVacationTracker.Application.Features.Employees.GetOneOrMany;
 
 public class ListAllEmployeesQueryResponse
 {

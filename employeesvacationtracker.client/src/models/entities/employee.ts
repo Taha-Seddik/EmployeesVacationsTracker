@@ -1,7 +1,7 @@
 export interface IEmployee {
   id: number; // identifier
   jobTitle: string;
-  departement: keyof typeof Departments;
+  department: Departments;
   role: string;
   joiningDate: string;
   userId: string;
@@ -18,16 +18,16 @@ export enum Departments {
 }
 
 export interface CreateOrUpdateEmployeeFormData {
-  email: string;
+  email?: string;
   firstName: string;
   lastName: string;
-  password: string;
+  password?: string;
   jobTitle: string;
   department: Departments;
   joiningDate: Date;
 }
 
-export interface CreateOrUpdateEmployeeRequest {
+export interface CreateEmployeeRequest {
   email: string;
   firstName: string;
   lastName: string;
@@ -36,3 +36,5 @@ export interface CreateOrUpdateEmployeeRequest {
   department: Departments;
   joiningDate: string;
 }
+
+export type UpdateEmployeeRequest = Omit<CreateEmployeeRequest, 'password' | 'email'>;

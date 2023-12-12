@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { RoutesMap } from '../../../routing/RoutesMap';
 import { PageContentContainer } from '../../../styles/base.styles';
 import Fab from '@mui/material/Fab';
@@ -7,8 +7,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { DatePickerElement, FormContainer, SelectElement, TextFieldElement, useForm } from 'react-hook-form-mui';
-import { CreateOrUpdateEmployeeFormData, Departments } from '../../../models/entities/employee';
-import { departmentOptions, getDefaultFormData, mapFormDataToRequestData } from './employeeEditionUtils';
+import { CreateOrUpdateEmployeeFormData, Departments, IEmployee } from '../../../models/entities/employee';
+import {
+  departmentOptions,
+  getDefaultFormData,
+  mapFormDataToCreateRequestData,
+  useFetchNeededDataForUpdate,
+} from './employeeEditionUtils';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
@@ -18,20 +23,32 @@ import { createEmployee } from '../../../services/employees.service';
 import { Notify } from '../../../services/toast.service';
 
 const topic = 'employee';
-const title = `Create new ${topic}`;
+const titleForCreate = () => `Create new ${topic}`;
+const titleForUpdate = (emp: IEmployee | null) => `Update employee ${emp?.firstName} ${emp?.lastName}`;
 
 const EmployeeEditionPage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const formDetails = useForm<CreateOrUpdateEmployeeFormData>({ defaultValues: getDefaultFormData() });
   const [showPassword, setShowPassword] = useState(false);
+  const { employeeId } = useParams();
+  const { foundEmp } = useFetchNeededDataForUpdate();
+  const isNotEditionMode = !Boolean(employeeId);
+
+  // edit mode: set form defaults
+  useEffect(() => {
+    if (foundEmp) {
+      const builtData = getDefaultFormData(foundEmp);
+      formDetails.reset(builtData);
+    }
+  }, [foundEmp]);
 
   const handleSubmit = async (data: CreateOrUpdateEmployeeFormData) => {
     try {
-      await createEmployee(mapFormDataToRequestData(data));
+      await createEmployee(mapFormDataToCreateRequestData(data));
       Notify('Employee created successfully!', 'SUCCESS');
       navigate(RoutesMap.employees.path);
     } catch (err: any) {
-      const errorInfo = err?.response?.data?.errors?.[0].Message;
+      const errorInfo = err?.response?.data?.errors?.[0]?.Message;
       Notify(errorInfo, 'Error');
     }
   };
@@ -45,7 +62,7 @@ const EmployeeEditionPage: React.FC<{}> = () => {
             <KeyboardReturnIcon />
           </Fab>
         </NavLink>
-        <Typography variant='h6'>{title}</Typography>
+        <Typography variant='h6'>{isNotEditionMode ? titleForCreate() : titleForUpdate(foundEmp)}</Typography>
       </Box>
 
       {/* Form  */}
@@ -57,15 +74,17 @@ const EmployeeEditionPage: React.FC<{}> = () => {
           Basic details
         </Divider>
         {/* email */}
-        <TextFieldElement
-          type='email'
-          name='email'
-          label='Email'
-          required
-          fullWidth
-          margin='normal'
-          autoComplete='employee-email'
-        />
+        {isNotEditionMode && (
+          <TextFieldElement
+            type='email'
+            name='email'
+            label='Email'
+            required
+            fullWidth
+            margin='normal'
+            autoComplete='employee-email'
+          />
+        )}
         <Grid container columnSpacing={{ xs: 0, md: 2 }}>
           {/* firstname */}
           <Grid item md={6} xs={12}>
@@ -77,27 +96,28 @@ const EmployeeEditionPage: React.FC<{}> = () => {
           </Grid>
         </Grid>
         {/* Password */}
-        <TextFieldElement
-          type={showPassword ? 'text' : 'password'}
-          name='password'
-          label='Password'
-          required
-          fullWidth
-          autoComplete='employee-password'
-          margin='normal'
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                aria-label='toggle password visibility'
-                onClick={() => setShowPassword(!showPassword)}
-                edge='end'
-                size='large'>
-                {showPassword ? <VisibilityOffOutlined fontSize='small' /> : <VisibilityOutlined fontSize='small' />}
-              </IconButton>
-            ),
-          }}
-        />
-
+        {isNotEditionMode && (
+          <TextFieldElement
+            type={showPassword ? 'text' : 'password'}
+            name='password'
+            label='Password'
+            required
+            fullWidth
+            autoComplete='employee-password'
+            margin='normal'
+            InputProps={{
+              endAdornment: (
+                <IconButton
+                  aria-label='toggle password visibility'
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge='end'
+                  size='large'>
+                  {showPassword ? <VisibilityOffOutlined fontSize='small' /> : <VisibilityOutlined fontSize='small' />}
+                </IconButton>
+              ),
+            }}
+          />
+        )}
         <Divider textAlign='center' sx={{ my: 2 }}>
           Employement details
         </Divider>
@@ -124,7 +144,7 @@ const EmployeeEditionPage: React.FC<{}> = () => {
         />
 
         <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
-          Create
+          {isNotEditionMode ? 'Create' : 'Update'}
         </Button>
       </FormContainer>
     </PageContentContainer>

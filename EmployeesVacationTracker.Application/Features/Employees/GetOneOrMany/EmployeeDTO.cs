@@ -1,6 +1,6 @@
 ﻿using EmployeesVacationTracker.DomainLayer.Entities;
 
-namespace EmployeesVacationTracker.Application.Features.Employees.ListAll
+namespace EmployeesVacationTracker.Application.Features.Employees.GetOneOrMany
 {
     public class EmployeeDTO
     {
