@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { CreateEmployeeRequest, IEmployee } from '../models/entities/employee';
+import { CreateEmployeeRequest, IEmployee, UpdateEmployeeRequest } from '../models/entities/employee';
 
 // const baseUrl = process.env.BASE_URL;
 const apiUrl = `/api/employees`;
@@ -34,6 +34,16 @@ export const createEmployee = (data: CreateEmployeeRequest): Promise<AxiosRespon
     },
   };
   return axios.post(url, data, config);
+};
+
+export const updateEmployee = (data: UpdateEmployeeRequest): Promise<AxiosResponse<void>> => {
+  const url = `${apiUrl}`;
+  const config = {
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  };
+  return axios.put(url, data, config);
 };
 
 export const deleteEmployee = (employeeId: number): Promise<AxiosResponse<void>> => {

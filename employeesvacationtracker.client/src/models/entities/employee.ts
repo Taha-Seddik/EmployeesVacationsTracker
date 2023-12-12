@@ -18,7 +18,7 @@ export enum Departments {
 }
 
 export interface CreateOrUpdateEmployeeFormData {
-  email?: string;
+  email: string;
   firstName: string;
   lastName: string;
   password?: string;
@@ -37,4 +37,4 @@ export interface CreateEmployeeRequest {
   joiningDate: string;
 }
 
-export type UpdateEmployeeRequest = Omit<CreateEmployeeRequest, 'password' | 'email'>;
+export type UpdateEmployeeRequest = Omit<CreateEmployeeRequest, 'password'> & { employeeId: number };

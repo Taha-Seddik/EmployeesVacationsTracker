@@ -12,6 +12,7 @@ import { getEmployeeById } from '../../../services/employees.service';
 export const getDefaultFormData = (foundEmp?: IEmployee): CreateOrUpdateEmployeeFormData => {
   if (foundEmp) {
     return {
+      email: foundEmp.email,
       firstName: foundEmp.firstName,
       lastName: foundEmp.lastName,
       jobTitle: foundEmp.jobTitle,
@@ -43,8 +44,13 @@ export const mapFormDataToCreateRequestData = (data: CreateOrUpdateEmployeeFormD
   };
 };
 
-export const mapFormDataToUpdateRequestData = (data: CreateOrUpdateEmployeeFormData): UpdateEmployeeRequest => {
+export const mapFormDataToUpdateRequestData = (
+  employeeId: number,
+  data: CreateOrUpdateEmployeeFormData,
+): UpdateEmployeeRequest => {
   return {
+    employeeId: employeeId,
+    email: data.email,
     firstName: data.firstName,
     lastName: data.lastName,
     jobTitle: data.jobTitle,

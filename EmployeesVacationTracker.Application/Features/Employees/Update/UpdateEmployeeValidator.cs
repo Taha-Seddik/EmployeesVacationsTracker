@@ -16,8 +16,8 @@ public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeCommand>
           .MustAsync(EmployeeShouldExists).WithMessage("The specified Employee Id should exists.");
     }
 
-    public async Task<bool> EmployeeShouldExists(int chocolateId, CancellationToken cancellationToken)
+    public async Task<bool> EmployeeShouldExists(int empId, CancellationToken cancellationToken)
     {
-        return await _employeesRepo.GetByIdAsync(chocolateId, cancellationToken) != null;
+        return await _employeesRepo.GetByIdAsync(empId, cancellationToken) != null;
     }
 }

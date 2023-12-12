@@ -12,6 +12,7 @@ import {
   departmentOptions,
   getDefaultFormData,
   mapFormDataToCreateRequestData,
+  mapFormDataToUpdateRequestData,
   useFetchNeededDataForUpdate,
 } from './employeeEditionUtils';
 import Button from '@mui/material/Button';
@@ -19,12 +20,12 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
-import { createEmployee } from '../../../services/employees.service';
+import { createEmployee, updateEmployee } from '../../../services/employees.service';
 import { Notify } from '../../../services/toast.service';
 
 const topic = 'employee';
 const titleForCreate = () => `Create new ${topic}`;
-const titleForUpdate = (emp: IEmployee | null) => `Update employee ${emp?.firstName} ${emp?.lastName}`;
+const titleForUpdate = (emp: IEmployee | null) => `Update ${topic} ${emp?.firstName} ${emp?.lastName}`;
 
 const EmployeeEditionPage: React.FC<{}> = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const EmployeeEditionPage: React.FC<{}> = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { employeeId } = useParams();
   const { foundEmp } = useFetchNeededDataForUpdate();
-  const isNotEditionMode = !Boolean(employeeId);
+  const isCreationMode = !Boolean(employeeId);
 
   // edit mode: set form defaults
   useEffect(() => {
@@ -44,8 +45,14 @@ const EmployeeEditionPage: React.FC<{}> = () => {
 
   const handleSubmit = async (data: CreateOrUpdateEmployeeFormData) => {
     try {
-      await createEmployee(mapFormDataToCreateRequestData(data));
-      Notify('Employee created successfully!', 'SUCCESS');
+      if (isCreationMode) {
+        await createEmployee(mapFormDataToCreateRequestData(data));
+        Notify('Employee created successfully!', 'SUCCESS');
+      } else {
+        await updateEmployee(mapFormDataToUpdateRequestData(Number(employeeId), data));
+        Notify('Employee updated successfully!', 'SUCCESS');
+      }
+
       navigate(RoutesMap.employees.path);
     } catch (err: any) {
       const errorInfo = err?.response?.data?.errors?.[0]?.Message;
@@ -62,7 +69,7 @@ const EmployeeEditionPage: React.FC<{}> = () => {
             <KeyboardReturnIcon />
           </Fab>
         </NavLink>
-        <Typography variant='h6'>{isNotEditionMode ? titleForCreate() : titleForUpdate(foundEmp)}</Typography>
+        <Typography variant='h6'>{isCreationMode ? titleForCreate() : titleForUpdate(foundEmp)}</Typography>
       </Box>
 
       {/* Form  */}
@@ -73,8 +80,8 @@ const EmployeeEditionPage: React.FC<{}> = () => {
         <Divider textAlign='center' sx={{ my: 2 }}>
           Basic details
         </Divider>
-        {/* email */}
-        {isNotEditionMode && (
+        {/* Email */}
+        {isCreationMode && (
           <TextFieldElement
             type='email'
             name='email'
@@ -86,17 +93,17 @@ const EmployeeEditionPage: React.FC<{}> = () => {
           />
         )}
         <Grid container columnSpacing={{ xs: 0, md: 2 }}>
-          {/* firstname */}
+          {/* Firstname */}
           <Grid item md={6} xs={12}>
             <TextFieldElement type='text' name='firstName' label='Firstname' required fullWidth margin='normal' />
           </Grid>
-          {/* lastname */}
+          {/* Lastname */}
           <Grid item md={6} xs={12}>
             <TextFieldElement type='text' name='lastName' label='Lastname' required fullWidth margin='normal' />
           </Grid>
         </Grid>
         {/* Password */}
-        {isNotEditionMode && (
+        {isCreationMode && (
           <TextFieldElement
             type={showPassword ? 'text' : 'password'}
             name='password'
@@ -118,11 +125,11 @@ const EmployeeEditionPage: React.FC<{}> = () => {
             }}
           />
         )}
+
         <Divider textAlign='center' sx={{ my: 2 }}>
           Employement details
         </Divider>
-
-        {/* jobTitle */}
+        {/* JobTitle */}
         <TextFieldElement type='text' name='jobTitle' label='Job title' required fullWidth margin='normal' />
         {/* Department */}
         <SelectElement
@@ -134,7 +141,7 @@ const EmployeeEditionPage: React.FC<{}> = () => {
           fullWidth
           margin='normal'
         />
-        {/* joiningDate */}
+        {/* JoiningDate */}
         <DatePickerElement
           name='joiningDate'
           label='Joining Date'
@@ -144,7 +151,7 @@ const EmployeeEditionPage: React.FC<{}> = () => {
         />
 
         <Button type='submit' variant='contained' color='primary' sx={{ mt: 2 }}>
-          {isNotEditionMode ? 'Create' : 'Update'}
+          {isCreationMode ? 'Create' : 'Update'}
         </Button>
       </FormContainer>
     </PageContentContainer>
