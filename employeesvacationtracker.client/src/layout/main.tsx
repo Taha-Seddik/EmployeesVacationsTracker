@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import { AdminSideNavPanel } from './adminSideNav';
 import { AdminMainSide } from './adminMainSide';
 import Box from '@mui/material/Box';
@@ -27,7 +26,7 @@ export const AdminPageLayout: React.FC<{ children: React.ReactElement }> = ({ ch
   );
 };
 
-const PageDecoration: React.FC<{}> = () => {
+const PageDecoration: React.FC = () => {
   return (
     <>
       <TopRightImg src='/images/topRight.svg' alt='' />
